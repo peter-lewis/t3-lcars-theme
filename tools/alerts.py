@@ -21,7 +21,7 @@ c+=f'''/* Ship alert states (fade 1.6s): Input = incoming hail (blue), Approval 
 @keyframes lc-breathe{{0%,100%{{--lc-p:1}}50%{{--lc-p:.4}}}}
 /* App buttons that use the message-action color (Submit, send) follow the alert palette */
 :root{{--message-action:var(--lc-orange) !important;--message-action-hover:var(--lc-peach) !important;}}
-/* (alert glow is drawn on [data-slot="sidebar-wrapper"] as edge bands; see base CSS) */
+/* (alert glow frames the chat: an inset glow on [data-workspace-area="conversation"]; see base CSS) */
 
 /* Incoming hail */
 {has(H)}{{--lc-orange:#4FC3F7;--lc-peach:#B3E5FC;--lc-lav:#5C7FC2;--lc-violet:#7FA8FF;--lc-blue:#C8F0FF;--lc-gold:#80DEEA;--lc-glow:rgba(70,170,255,.16);--lc-stop:#4FC3F7;animation:lc-breathe 3s ease-in-out infinite;}}

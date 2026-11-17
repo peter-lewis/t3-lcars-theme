@@ -15,12 +15,11 @@ t['css']=t['css'].replace('LCARS - TNG-style theme.','LCARS Red Alert. Back to n
 t['css']+='''
 /* Red alert pulse */
 @keyframes lc-alert-bars{0%,100%{border-color:#FF2222}50%{border-color:#5A0000}}
-@keyframes lc-alert-glow{0%,100%{box-shadow:inset 0 0 140px rgba(255,20,20,.16)}50%{box-shadow:inset 0 0 60px rgba(255,20,20,.03)}}
 [data-slot="sidebar-inner"]{animation:lc-alert-bars 1.8s ease-in-out infinite;}
 [data-slot="composer-host"]{animation:lc-alert-bars 1.8s ease-in-out infinite;}
-[data-workspace-area="conversation"]{animation:lc-alert-glow 1.8s ease-in-out infinite,lc-drift 300s steps(1400) infinite;}
-[data-workspace-area="conversation"]:is(:root:has(button[aria-label="Stop generation"]) *){animation:lc-alert-glow 1.8s ease-in-out infinite,lc-drift 300s steps(1400) infinite;}
-@media (prefers-reduced-motion:reduce){[data-slot="sidebar-inner"],[data-slot="composer-host"],[data-workspace-area="conversation"]{animation:none !important;}}
+/* The chat-frame glow (same as hail / yellow / red alert) stays lit and pulses */
+:root{--lc-glow:rgba(255,30,30,.22);animation:lc-breathe 1.8s ease-in-out infinite;}
+@media (prefers-reduced-motion:reduce){[data-slot="sidebar-inner"],[data-slot="composer-host"],:root{animation:none !important;}}
 '''
 json.dump(t,open(dst,'w'),indent=2)
 left=[h for h in set(re.findall(r'#[0-9A-Fa-f]{6}\b',json.dumps({k:v for k,v in t.items() if k!='css'})+re.sub(r'base64,[^)]*','',t['css'])))]
