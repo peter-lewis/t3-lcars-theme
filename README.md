@@ -4,6 +4,12 @@ A Star Trek: The Next Generation–style (LCARS) theme for [T3 Code](https://git
 
 The theme draws an LCARS frame around the app, runs a starfield that goes to warp while Claude works, and fades in hail, yellow alert and red alert when a thread needs you.
 
+![LCARS theme while a thread is working: orange LCARS frame, warp starfield, and a working card with moving bar meters](docs/warp.jpg)
+
+| Incoming hail: a thread needs input | Yellow alert: a thread needs approval | Red alert: a thread failed |
+|---|---|---|
+| ![Blue incoming hail with the LCARS question card](docs/hail.jpg) | ![Amber yellow alert while a command waits for approval](docs/yellow-alert.jpg) | ![Red alert after a failed run](docs/red-alert.jpg) |
+
 ## Copy/paste prompt
 
 Paste one of these into a T3 Code thread. Claude does the rest.
@@ -47,6 +53,8 @@ Uninstall the LCARS theme from https://github.com/peter-lewis/t3-lcars-theme: sw
   The stop button, the Submit button, the scrollbars and the glow follow the alert color.
 - **Light and dark.** Both appearances are styled.
 - **Reduced motion.** Animations stop when macOS *Reduce motion* is on.
+
+![At rest: the starfield drifts slowly behind a finished thread](docs/idle.jpg)
 
 There is also `lcars-red-alert`, a manual variant that keeps the whole app in red alert until you switch back.
 
