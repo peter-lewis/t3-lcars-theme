@@ -122,22 +122,26 @@ def block(T=TOKENS):
 /* Working cards: one segmented meter (same cells as the waiting card), two levels jumping independently */
 {L} {ROW}:has(.text-info-foreground){{background-image:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 4px),{T['tint']} calc(12.5% - 4px) 12.5%),linear-gradient(var(--lc-orange),var(--lc-orange)),linear-gradient(var(--lc-violet),var(--lc-violet)),linear-gradient({T['track']},{T['track']}) !important;background-size:calc(100% - 28px) 3px,var(--lc-a) 3px,var(--lc-b) 3px,calc(100% - 28px) 3px !important;background-position:14px calc(100% - 4px) !important;background-repeat:no-repeat !important;animation:lc-meter-a 3.2s steps(4,jump-none) infinite,lc-meter-b 2.6s steps(3,jump-none) infinite,lc-cap-cycle-l 1.6s infinite !important;}}
 {L} {ROW}:has(.lucide-circle-dot-dashed){{animation:lc-standby-l 2s infinite,lc-wait-cap-l 2s infinite !important;}}
-{L} {SEL}:has(.text-info-foreground){{background-image:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 4px),var(--lc-orange) calc(12.5% - 4px) 12.5%),linear-gradient(#1A0E00,#1A0E00),linear-gradient(#8A4600,#8A4600),linear-gradient(rgba(0,0,0,.14),rgba(0,0,0,.14)) !important;background-size:calc(100% - 28px) 3px,var(--lc-a) 3px,var(--lc-b) 3px,calc(100% - 28px) 3px !important;background-position:14px calc(100% - 4px) !important;background-repeat:no-repeat !important;animation:lc-meter-a 3.2s steps(4,jump-none) infinite,lc-meter-b 2.6s steps(3,jump-none) infinite,lc-cap-cycle-sel-l 1.6s infinite !important;}}
-{L} {SEL} .text-info-foreground{{color:#000 !important;}}
-{L} {SEL}:has(.lucide-circle-dot-dashed){{animation:lc-standby-sel 2s infinite,lc-wait-cap-sel 2s infinite !important;}}
+/* Selected card: a pale tint of the accent with a solid endcap, so its text keeps the normal ink colours */
+{L} {SEL}{{background:color-mix(in srgb,var(--lc-orange) 24%,{panel}) !important;box-shadow:inset -8px 0 0 var(--lc-orange) !important;}}
+{L} {SEL},{L} {SEL} *{{color:revert-layer !important;}}
+{L} {SEL}:has(.text-info-foreground){{background-color:color-mix(in srgb,var(--lc-orange) 24%,{panel}) !important;background-image:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 4px),color-mix(in srgb,var(--lc-orange) 24%,{panel}) calc(12.5% - 4px) 12.5%),linear-gradient(var(--lc-orange),var(--lc-orange)),linear-gradient(var(--lc-violet),var(--lc-violet)),linear-gradient({T['track']},{T['track']}) !important;background-size:calc(100% - 28px) 3px,var(--lc-a) 3px,var(--lc-b) 3px,calc(100% - 28px) 3px !important;background-position:14px calc(100% - 4px) !important;background-repeat:no-repeat !important;animation:lc-meter-a 3.2s steps(4,jump-none) infinite,lc-meter-b 2.6s steps(3,jump-none) infinite,lc-cap-cycle-l 1.6s infinite !important;}}
+{L} {SEL} .text-info-foreground{{color:{ink('--lc-orange', 72)} !important;}}
+{L} {SEL} :is(span,div):has(> {H}){{color:#1F78A8 !important;}}
+{L} {SEL}:has(.lucide-circle-dot-dashed){{background-color:color-mix(in srgb,var(--lc-orange) 24%,{panel}) !important;animation:lc-standby-l 2s infinite,lc-wait-cap-l 2s infinite !important;}}
 /* Alerts on grey: deeper hues so the bars hold up against the light background */
 {L}:has({ROW} {H}){{--lc-orange:#1E9BD7;--lc-peach:#6EC3EA;--lc-lav:#3F68B0;--lc-violet:#5B86E8;--lc-blue:#1C7FB8;--lc-gold:#2BB3C4;--lc-glow:rgba(30,140,230,.18);--lc-stop:#1E9BD7;}}
 @keyframes lc-hail-cap-l{{0%,100%{{box-shadow:inset -8px 0 0 #1E9BD7}}50%{{box-shadow:inset -8px 0 0 #A8D8F0}}}}
 {L} {ROW}:has({H}){{background-color:#D8E8F4 !important;animation:lc-hail-cap-l 2s ease-in-out infinite !important;}}
-{L} {SEL}:has({H}){{background-color:#1E9BD7 !important;}}
+{L} {SEL}:has({H}){{background:color-mix(in srgb,#1E9BD7 24%,{panel}) !important;animation:lc-hail-cap-l 2s ease-in-out infinite !important;}}
 {L}:has({ROW} {Y}){{--lc-orange:#E0A000;--lc-peach:#EEC04A;--lc-lav:#A88412;--lc-violet:#D9AE1F;--lc-blue:#9A7A00;--lc-gold:#D49B00;--lc-glow:rgba(230,170,0,.24);--lc-stop:#E0A000;}}
 @keyframes lc-yellow-cap-l{{0%,100%{{box-shadow:inset -8px 0 0 #E0A000}}50%{{box-shadow:inset -8px 0 0 #F2DC94}}}}
 {L} {ROW}:has({Y}){{background-color:#F2EACB !important;animation:lc-yellow-cap-l 2.4s ease-in-out infinite !important;}}
-{L} {SEL}:has({Y}){{background-color:#E0A000 !important;}}
+{L} {SEL}:has({Y}){{background:color-mix(in srgb,#E0A000 24%,{panel}) !important;animation:lc-yellow-cap-l 2.4s ease-in-out infinite !important;}}
 {L}:has({ROW} {R}){{--lc-orange:#E02828;--lc-peach:#F08080;--lc-lav:#A02C2C;--lc-violet:#E84A4A;--lc-blue:#C03030;--lc-gold:#E05555;--lc-glow:rgba(230,30,30,.18);--lc-stop:#E02828;}}
 @keyframes lc-red-cap-l{{0%,49.9%{{box-shadow:inset -8px 0 0 #E02828}}50%,100%{{box-shadow:inset -8px 0 0 #F2A8A8}}}}
 {L} {ROW}:has({R}){{background-color:#F2D8D8 !important;animation:lc-red-cap-l 1.2s infinite !important;}}
-{L} {SEL}:has({R}){{background-color:#E02828 !important;}}
+{L} {SEL}:has({R}){{background:color-mix(in srgb,#E02828 24%,{panel}) !important;animation:lc-red-cap-l 1.2s infinite !important;}}
 @media (prefers-reduced-motion:reduce){{{L} {ROW}{ROW}{{animation:none !important;}}}}
 {END}'''
 
