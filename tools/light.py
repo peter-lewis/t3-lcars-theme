@@ -10,16 +10,16 @@ L = 'html:not(.dark)'
 
 # Every light-mode colour comes from these tokens. Swap them to retune the whole light look.
 TOKENS = {
-    'bg': '#CFD2D9',          # canvas, sidebar, starfield: bulkhead grey
-    'panel': '#E8EAEE',       # composer, details card, tooltips
-    'card': 'rgba(236,238,242,.94)',  # assistant messages and the working card
-    'raised': '#E1E3E8',      # T3 raised surfaces, code blocks
-    'hover': '#DADDE3',
-    'line': '#B4B8C2',
-    'ink': '#12141B', 'muted': '#454A59', 'faint': '#7A7F8E',
-    'tint': '#DCDAE6',        # working / waiting sidebar cards
-    'track': '#C4C7D0',       # empty meter segments, standby off-cells
-    'glass': '214,217,223',   # terminal and right-panel glass (rgb)
+    'bg': '#DCE0E7',          # canvas, sidebar, starfield: light bulkhead grey with a cool tint
+    'panel': '#F1F3F6',       # composer, details card, tooltips
+    'card': 'rgba(242,244,247,.94)',  # assistant messages and the working card
+    'raised': '#E8EBEF',      # T3 raised surfaces, code blocks
+    'hover': '#E3E6EC',
+    'line': '#C0C5CF',
+    'ink': '#12141B', 'muted': '#474C5C', 'faint': '#7C8191',
+    'tint': '#E4E2EE',        # working / waiting sidebar cards
+    'track': '#CDD1DA',       # empty meter segments, standby off-cells
+    'glass': '226,229,235',   # terminal and right-panel glass (rgb)
     'stars': ('24,27,40', '30,60,120', '120,70,20'),
     'orange': '#F28C00', 'peach': '#F0A868', 'lav': '#8E62AA', 'violet': '#7676E8', 'blue': '#4F94DE', 'gold': '#E0A21A',
 }

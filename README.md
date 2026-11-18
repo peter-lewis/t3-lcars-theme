@@ -51,7 +51,7 @@ Uninstall the LCARS theme from https://github.com/peter-lewis/t3-lcars-theme: sw
   | A thread has failed | Red alert | Red |
 
   The stop button, the Submit button, the scrollbars and the glow follow the alert color.
-- **Light and dark.** In light appearance the console turns bulkhead grey: LCARS bars on cool grey panels with a deeper lavender, ink-speck stars that still go to warp, and darker alert hues so hail, yellow and red alert stay readable. T3 Code switches between them with its color scheme setting.
+- **Light and dark.** In light appearance the console turns a light, cool grey: LCARS bars on pale grey panels with a deeper lavender, ink-speck stars that still go to warp, and darker alert hues so hail, yellow and red alert stay readable. T3 Code switches between them with its color scheme setting.
 - **Reduced motion.** Animations stop when macOS *Reduce motion* is on.
 
 ![At rest: the starfield drifts slowly behind a finished thread](docs/idle.jpg)
