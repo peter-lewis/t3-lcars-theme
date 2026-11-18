@@ -51,6 +51,7 @@ Uninstall the LCARS theme from https://github.com/peter-lewis/t3-lcars-theme: sw
   | A thread has failed | Red alert | Red |
 
   The stop button, the Submit button, the scrollbars and the glow follow the alert color.
+- **Snoozed threads.** Snoozed rows get a dim violet card with a steady endcap instead of the working meters, the shelf headers use LCARS caps, and the Snoozed / Settled line under the chat becomes an LCARS strip with a Wake now / Un-settle key.
 - **Approval keys.** When a command waits for approval, Approve is a solid LCARS key in the alert color, Decline a red outline key and More a small outline key.
 - **Light and dark.** In light appearance the console turns a pale, cool grey: LCARS bars on near-white panels with a deeper lavender, ink-speck stars that still go to warp, and darker alert hues so hail, yellow and red alert stay readable. T3 Code switches between them with its color scheme setting.
 - **Reduced motion.** Animations stop when macOS *Reduce motion* is on.
