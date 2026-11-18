@@ -1,6 +1,10 @@
 import json,sys,re
 src,dst=sys.argv[1],sys.argv[2]
 t=json.load(open(src))
+# Red alert is a dark-only mode: drop the light block and reuse the dark palette for light appearance.
+_s,_e='/* Light mode','/* End light mode */\n'
+if _s in t['css']: t['css']=t['css'][:t['css'].index(_s)]+t['css'][t['css'].index(_e)+len(_e):]
+t['variants']={**t.get('variants',{}),'light':dict(t['colors'])}
 m={'#FF9900':'#FF2222','#CC7A00':'#990000','#FFB366':'#FF7777','#FFB040':'#FF5555','#FFCC99':'#FFB3B3',
 '#CC99CC':'#B33A3A','#9999FF':'#FF4444','#99CCFF':'#FFAAAA','#BFE0FF':'#FFD0D0','#FFCC66':'#FF6666',
 '#2A1800':'#2A0505','#1A1420':'#200808','#2A1E30':'#2A0A0A','#F4E3D0':'#FFE6E6','#AFAFD8':'#D89999',
