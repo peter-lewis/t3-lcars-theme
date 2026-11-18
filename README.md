@@ -51,14 +51,14 @@ Uninstall the LCARS theme from https://github.com/peter-lewis/t3-lcars-theme: sw
   | A thread has failed | Red alert | Red |
 
   The stop button, the Submit button, the scrollbars and the glow follow the alert color.
-- **Light and dark.** In light appearance the console turns to parchment: deeper LCARS bars on warm paper, ink-speck stars that still go to warp, and darker alert hues so hail, yellow and red alert stay readable. T3 Code switches between them with its color scheme setting.
+- **Light and dark.** In light appearance the console turns bulkhead grey: LCARS bars on cool grey panels with a deeper lavender, ink-speck stars that still go to warp, and darker alert hues so hail, yellow and red alert stay readable. T3 Code switches between them with its color scheme setting.
 - **Reduced motion.** Animations stop when macOS *Reduce motion* is on.
 
 ![At rest: the starfield drifts slowly behind a finished thread](docs/idle.jpg)
 
 | Light: at rest | Light: warp | Light: red alert |
 |---|---|---|
-| ![LCARS light mode at rest: parchment background, orange and lavender LCARS frame](docs/light-idle.jpg) | ![LCARS light mode while working: ink starfield at warp, bar meters and the terminal drawer](docs/light-warp.jpg) | ![LCARS light mode in red alert](docs/light-red-alert.jpg) |
+| ![LCARS light mode at rest: grey background, orange and lavender LCARS frame](docs/light-idle.jpg) | ![LCARS light mode while working: ink starfield at warp, bar meters and the terminal drawer](docs/light-warp.jpg) | ![LCARS light mode in red alert](docs/light-red-alert.jpg) |
 
 There is also `lcars-red-alert`, a manual variant that keeps the whole app in red alert until you switch back.
 
@@ -119,7 +119,7 @@ The whole theme is CSS inside `themes/lcars.json`. Edit the installed copy in `~
 Helper scripts in `tools/`:
 
 - `alerts.py <theme.json> [hail_icon yellow_icon red_icon]` regenerates the alert block at the end of the CSS, which is everything from `/* Ship alert states`. Passing other icon names lets you preview a look. For example, `python3 tools/alerts.py themes/lcars.json test-none message-circle-question-mark test-none` makes a question trigger yellow alert. Run it without icon names to restore the real triggers.
-- `light.py themes/lcars.json` regenerates the light palette (`variants.light`) and the light-mode block, which sits just before `/* Ship alert states`. Edit the palette and rules in the script, then re-run it.
+- `light.py themes/lcars.json` regenerates the light palette (`variants.light`) and the light-mode block, which sits just before `/* Ship alert states`. Every light colour comes from the `TOKENS` dict at the top, so retune it there, then re-run the script.
 - `redalert.py themes/lcars.json themes/lcars-red-alert.json` rebuilds the red variant by color mapping. The red variant is dark only.
 - `embed.py <theme.json> fonts/antonio.woff2` embeds the font.
 
