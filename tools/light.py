@@ -102,6 +102,11 @@ def block(T=TOKENS):
 {L} [data-thread-details-card] svg{{color:{ink('--lc-lav', 80)} !important;}}
 {L} button.bg-message-action:disabled,{L} [data-pending-user-input-toggle],{L} [data-pending-user-input-toggle] *{{color:{ink('--lc-orange', 72)} !important;}}
 {L} {ROW} :is(span,div):has(> {H}){{color:#1F78A8 !important;}}
+/* Approval keys: a deeper decline red, and More/Decline hovers keep light text readable */
+{L}{{--lc-decline:#C62828;}}
+{L} [data-v2-item-type="approval_request"] [data-slot="inline-button"][aria-label="More approval options"]{{color:{ink('--lc-lav', 85)} !important;}}
+{L} [data-v2-item-type="approval_request"] [data-slot="inline-button"][aria-label="More approval options"]:hover{{color:#fff !important;}}
+{L} [data-v2-item-type="approval_request"] span[aria-hidden="true"] + [data-slot="inline-button"]:not(.text-foreground):hover,{L} [data-v2-item-type="approval_request"] span[aria-hidden="true"] + [data-slot="inline-button"].text-foreground + [data-slot="inline-button"]:not([aria-label]):hover{{color:#fff !important;}}
 /* Tabs and launcher keys: tinted panels, ink labels */
 {L} [data-right-panel-tab-list] [data-active-tab]{{background:color-mix(in srgb,var(--lc-lav) 26%,{panel}) !important;color:{fg} !important;}}
 {L} [data-right-panel-tab-list] [data-active-tab]:hover{{background:color-mix(in srgb,var(--lc-lav) 48%,{panel}) !important;}}
