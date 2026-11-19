@@ -10,6 +10,8 @@ The theme draws an LCARS frame around the app, runs a starfield that goes to war
 |---|---|---|
 | ![Blue incoming hail with the LCARS question card](docs/hail.jpg) | ![Amber yellow alert while a command waits for approval](docs/yellow-alert.jpg) | ![Red alert after a failed run](docs/red-alert.jpg) |
 
+**Requires T3 Code Nightly `0.1.11-nightly.20261117.4825` or later.** LCARS has about 83,000 characters of CSS. T3 Code Stable 0.1.10 and older nightlies cap theme CSS at 50,000 characters and leave the theme out of the theme list without an error. The next Stable release will lift the cap to 100,000.
+
 ## Copy/paste prompt
 
 Paste one of these into a T3 Code thread. Claude does the rest.
@@ -73,7 +75,7 @@ cd ~/dev/t3-lcars-theme
 ./install.sh --sounds   # theme and sounds (macOS)
 ```
 
-Then choose **LCARS** in T3 Code's theme settings.
+Then choose **LCARS** in T3 Code's theme settings. If LCARS is missing from the list, your T3 Code is too old; `install.sh` warns when it finds one (see [Compatibility](#compatibility)).
 
 `install.sh` copies the themes into `~/.t3/userdata/themes/`. They are copies, not symlinks, because T3 Code ignores symlinked themes. Re-run it after `git pull` to update. Anything it replaces is backed up next to the original as `*.bak-<timestamp>`.
 
@@ -109,6 +111,7 @@ If you are an AI agent following one of the prompts above:
 
 1. Clone or pull the repo, then run `./install.sh`, adding `--sounds` only if the user asked for sounds.
 2. Switch the theme. In T3 Code, call `t3_theme_set` with `themeId: "lcars"` if you have it. Otherwise tell the user to choose **LCARS** in T3 Code's theme settings.
+   If `install.sh` warns about the T3 Code version, or `t3_theme_set` reports a 50,000-character limit, do not shrink or minify the theme. Tell the user to update to T3 Code Nightly `0.1.11-nightly.20261117.4825` or later (or a Stable release after 0.1.10) and choose LCARS after updating. The installed files can stay.
 3. If you installed sounds, tell the user that `/sounds off` turns them off and that the hooks load in new sessions.
 4. To uninstall, switch the theme back to `t3-code` first, then run `./uninstall.sh`.
 
@@ -139,7 +142,7 @@ The selectors were found in T3 Code's bundle. To look yourself, run `npx @electr
 
 ## Compatibility
 
-Built against T3 Code Nightly in November 2026. The theme depends on T3 Code's internal markup, so an update can break parts of it. Issues and pull requests are welcome.
+Built against T3 Code Nightly in November 2026. It needs `0.1.11-nightly.20261117.4825` or later, the first build whose theme CSS cap is 100,000 characters ([pingdotgg/t3code#37781](https://github.com/pingdotgg/t3code/pull/37781)). T3 Code Stable 0.1.10 caps it at 50,000, so the theme does not appear there. The theme depends on T3 Code's internal markup, so an update can break parts of it. Issues and pull requests are welcome.
 
 ## Credits and license
 

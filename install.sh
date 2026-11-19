@@ -27,11 +27,39 @@ place() {
   cp "$src" "$dst"
 }
 
+# LCARS has more than 50,000 characters of CSS. T3 Code 0.1.10 and earlier, and nightlies before
+# 0.1.11-nightly.20261117.4825, cap theme CSS at 50,000 and leave the theme out of the list.
+# Prints the version of each installed T3 Code app that is too old.
+old_t3_versions() {
+  local app v base build
+  for app in /Applications/T3\ Code*.app "$HOME"/Applications/T3\ Code*.app; do
+    [ -f "$app/Contents/Info.plist" ] || continue
+    v="$(defaults read "$app/Contents/Info.plist" CFBundleShortVersionString 2>/dev/null)" || continue
+    base="${v%%-*}"
+    build="${v##*.}"
+    if [ "$(printf '%s\n0.1.11\n' "$base" | sort -t. -k1,1n -k2,2n -k3,3n | head -1)" != "0.1.11" ]; then
+      echo "$(basename "$app" .app) $v"   # older than 0.1.11
+    elif [ "$base" = "0.1.11" ] && [ "$v" != "$base" ] && [ "$build" -lt 4825 ] 2>/dev/null; then
+      echo "$(basename "$app" .app) $v"   # a 0.1.11 prerelease from before the 100,000 cap
+    fi
+  done
+}
+
 mkdir -p "$THEMES"
 for theme in "$REPO"/themes/*.json; do
   place "$theme" "$THEMES/$(basename "$theme")"
   echo "Installed theme $(basename "$theme" .json) -> $THEMES"
 done
+
+if [ "$(uname)" = Darwin ]; then
+  OLD="$(old_t3_versions)"
+  if [ -n "$OLD" ]; then
+    echo >&2
+    echo "Warning: these T3 Code versions cap theme CSS at 50,000 characters and will not list LCARS:" >&2
+    echo "$OLD" | sed 's/^/  /' >&2
+    echo "LCARS needs T3 Code Nightly 0.1.11-nightly.20261117.4825 or later, or a Stable release after 0.1.10." >&2
+  fi
+fi
 
 if [ "$SOUNDS" = 1 ]; then
   if [ ! -x /usr/bin/afplay ]; then
