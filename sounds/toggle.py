@@ -23,9 +23,9 @@ arg=(args[0] if args else '').strip().lower()
 muted=os.path.exists(MUTE)
 if arg in ('', 'toggle'): arg='on' if muted else 'off'
 if arg=='status':
-    print('LCARS sounds are ' + ('OFF' if muted else 'ON'))
+    print('LCARS sounds are ' + ('OFF' if muted else 'ON') + '\n')   # blank line: chat Markdown would join the lines
     mine=[f'{s} = {os.path.basename(custom(s))}' for s in SLOTS if custom(s)]
-    print('Custom sounds: ' + (', '.join(mine) if mine else 'none') + f'  ({CU})'); sys.exit()
+    print('Custom sounds: ' + (', '.join(mine) if mine else 'none') + '  (~/.claude/lcars-sounds-custom)'); sys.exit()
 if arg=='off':
     open(MUTE,'w').close()
     try: os.killpg(int(open(PID).read()), signal.SIGTERM)
@@ -45,7 +45,7 @@ elif arg=='use' and len(args)>=3 and args[1].lower() in SLOTS:
     if not os.path.isfile(src): print(f'No file at {src}'); sys.exit(1)
     if ext not in EXTS: print(f'Use one of {" ".join(EXTS)} (got {ext or "no extension"})'); sys.exit(1)
     os.makedirs(CU,exist_ok=True); clear(slot); dst=os.path.join(CU,slot+ext); shutil.copyfile(src,dst)
-    play(dst, 0.12 if slot.startswith('hum') else 0.45)
+    if not muted: play(dst, 0.12 if slot.startswith('hum') else 0.45)   # preview, unless sounds are off
     print(f'LCARS {slot} sound ({SLOTS[slot]}) is now {os.path.basename(src)}')
 elif arg=='reset' and len(args)<=2:
     which=(args[1].lower() if len(args)==2 else 'all')

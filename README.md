@@ -143,7 +143,7 @@ You can swap any sound for an audio file you like, such as clips from [TrekCore'
 | `hum` | Loops while Claude works | A seamless engine or bridge ambience loop. It plays at low volume |
 | `hum_in`, `hum_out` | Hum starts and stops | Optional. With a custom `hum` and no custom fades, the hum starts and stops without them |
 
-`/sounds use` plays the file once as a preview and copies it to `~/.claude/lcars-sounds-custom/<slot>.<ext>`, so you can delete the download. Reinstalling or updating keeps your files. You can also put files in that folder yourself, named after the slot. Formats: `.wav`, `.mp3`, `.m4a`, `.aac`, `.aif`, `.aiff`, `.caf`.
+`/sounds use` plays the file once as a preview (unless sounds are off) and copies it to `~/.claude/lcars-sounds-custom/<slot>.<ext>`, so you can delete the download. Reinstalling or updating keeps your files. You can also put files in that folder yourself, named after the slot. Formats: `.wav`, `.mp3`, `.m4a`, `.aac`, `.aif`, `.aiff`, `.caf`.
 
 **Or ask Claude to do it.** TrekCore blocks automated downloads, so download the clips yourself first, then paste something like:
 
