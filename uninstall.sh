@@ -16,4 +16,5 @@ if [ -d "$HOME/.claude/hooks/lcars-sounds" ]; then
   rm -rf "$HOME/.claude/hooks/lcars-sounds" "$HOME/.claude/lcars-sounds-state"
   rm -f "$HOME/.claude/commands/sounds.md"
   echo "Removed LCARS sounds"
+  if [ -d "$HOME/.claude/lcars-sounds-custom" ]; then echo "Kept your own sound files in ~/.claude/lcars-sounds-custom (delete it if you no longer want them)"; fi
 fi
