@@ -124,6 +124,36 @@ Restart Claude Code, or start a new T3 thread, to load the hooks.
 
 To change the sounds, edit `make_beeps.py` or `make_hum.py` and run `./install.sh --sounds` again.
 
+### Use your own sounds
+
+You can swap any sound for an audio file you like, such as clips from [TrekCore's audio library](https://www.trekcore.com/audio/). This repo does not include or download those clips. You download the ones you want in your browser, for your own use, and point the theme at them:
+
+```
+/sounds use hail ~/Downloads/tng_hail.mp3
+/sounds use done ~/Downloads/computer_beep.mp3
+/sounds reset hail      # back to the built-in chirp; /sounds reset resets every slot
+/sounds status          # shows which slots use your files
+```
+
+| Slot | Plays when | Tips |
+|---|---|---|
+| `ack` | You send a prompt | A short beep under a second works best |
+| `hail` | Claude asks a question or needs permission | A hail whistle or comm chirp |
+| `done` | Claude finishes | A short beep or chirp |
+| `hum` | Loops while Claude works | A seamless engine or bridge ambience loop. It plays at low volume |
+| `hum_in`, `hum_out` | Hum starts and stops | Optional. With a custom `hum` and no custom fades, the hum starts and stops without them |
+
+`/sounds use` plays the file once as a preview and copies it to `~/.claude/lcars-sounds-custom/<slot>.<ext>`, so you can delete the download. Reinstalling or updating keeps your files. You can also put files in that folder yourself, named after the slot. Formats: `.wav`, `.mp3`, `.m4a`, `.aac`, `.aif`, `.aiff`, `.caf`.
+
+**Or ask Claude to do it.** TrekCore blocks automated downloads, so download the clips yourself first, then paste something like:
+
+```text
+I downloaded some Star Trek sound clips to ~/Downloads. Set them up as my LCARS sounds:
+use the hail whistle for "hail", the short computer beep for "ack", the chirp for "done",
+and the engine ambience for "hum". Use ~/.claude/hooks/lcars-sounds/toggle.py use <slot> <file>
+for each one, then run its status command and show me the result.
+```
+
 ## For agents installing this
 
 If you are an AI agent following one of the prompts above:
@@ -131,7 +161,7 @@ If you are an AI agent following one of the prompts above:
 1. Clone or pull the repo, then run `./install.sh`, adding `--sounds` only if the user asked for sounds.
 2. If `install.sh` exits with status 2 and prints `LCARS INSTALL NEEDS A CHOICE FROM THE USER`, T3 Code is too old for the full theme and nothing was installed. Ask the user which version they want, with your question tool if you have one (`AskUserQuestion` in Claude Code), offering the options in the order printed. Run the command for their answer. Do not choose for them, and do not edit or minify the theme files yourself.
 3. Switch the theme. In T3 Code, call `t3_theme_set` with `themeId: "lcars"` if you have it. Otherwise tell the user to choose **LCARS** in T3 Code's theme settings. If `t3_theme_set` reports a 50,000-character limit, run `./install.sh` again without flags and go back to step 2.
-4. If you installed sounds, tell the user that `/sounds off` turns them off and that the hooks load in new sessions.
+4. If you installed sounds, tell the user that `/sounds off` turns them off, that `/sounds use <slot> <file>` swaps in their own audio (see [Use your own sounds](#use-your-own-sounds)), and that the hooks load in new sessions. Do not download sound clips for the user from third-party sites; they pick and download their own.
 5. To uninstall, switch the theme back to `t3-code` first, then run `./uninstall.sh`.
 
 Do not symlink the theme files into `~/.t3/userdata/themes/`; T3 Code will not list them.
