@@ -120,7 +120,7 @@ Several sessions working at once share one hum. The hum stops on its own after 3
 
 Restart Claude Code, or start a new T3 thread, to load the hooks.
 
-**Turn them on and off** with `/sounds off`, `/sounds on`, `/sounds status`, or plain `/sounds` to flip. Without the command, run `python3 ~/.claude/hooks/lcars-sounds/toggle.py off`.
+**Turn them on and off** with `/sounds off`, `/sounds on`, `/sounds status`, or plain `/sounds` to flip. `/sounds help` lists every option. Without the command, run `python3 ~/.claude/hooks/lcars-sounds/toggle.py off`.
 
 To change the sounds, edit `make_beeps.py` or `make_hum.py` and run `./install.sh --sounds` again.
 
