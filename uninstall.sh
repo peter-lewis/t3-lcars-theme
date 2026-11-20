@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# Removes the LCARS theme files and the LCARS sounds. Switch T3 Code to another theme first.
+# Removes the LCARS theme files, the /lcars command and the LCARS sounds. Switch T3 Code to another theme first.
 # Usage: ./uninstall.sh
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for theme in "$REPO"/themes/*.json; do
-  rm -f "$HOME/.t3/userdata/themes/$(basename "$theme")"
+  rm -f "${T3CODE_HOME:-$HOME/.t3}/userdata/themes/$(basename "$theme")"
 done
 echo "Removed LCARS themes from ~/.t3/userdata/themes"
+rm -rf "$HOME/.claude/lcars"
+rm -f "$HOME/.claude/commands/lcars.md"
+echo "Removed the /lcars command and its settings"
 
 if [ -d "$HOME/.claude/hooks/lcars-sounds" ]; then
   python3 -I "$HOME/.claude/hooks/lcars-sounds/toggle.py" off >/dev/null 2>&1 || true   # silence a running hum

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs the LCARS theme into T3 Code, and optionally the LCARS sounds into Claude Code.
+# Installs the LCARS theme into T3 Code with its /lcars command, and optionally the LCARS sounds into Claude Code.
 # Usage: ./install.sh [--sounds] [--compact dark|nofont | --full]
 #   --compact dark    for T3 Code 0.1.10: dark mode only, with the LCARS font
 #   --compact nofont  for T3 Code 0.1.10: light and dark, in the system's condensed font
@@ -8,8 +8,9 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-THEMES="$HOME/.t3/userdata/themes"
+THEMES="${T3CODE_HOME:-$HOME/.t3}/userdata/themes"
 HOOKS="$HOME/.claude/hooks/lcars-sounds"
+CONTROL="$HOME/.claude/lcars"
 COMMANDS="$HOME/.claude/commands"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 NEEDS="T3 Code Nightly 0.1.11-nightly.20261117.4825 or later, or a Stable release after 0.1.10"
@@ -147,6 +148,17 @@ else
   echo "Installed compact theme lcars ($VARIANT) and lcars-red-alert -> $THEMES"
   echo "After you update to $NEEDS, run ./install.sh again for the full theme."
 fi
+
+# /lcars keeps an untouched copy of each installed theme and rebuilds the installed file from it
+# with the saved settings, so re-apply them now that the theme files were replaced.
+rm -rf "$CONTROL/base" && mkdir -p "$CONTROL/base" "$COMMANDS"
+for theme in "$THEMES"/lcars.json "$THEMES"/lcars-red-alert.json; do
+  if [ -f "$theme" ]; then cp "$theme" "$CONTROL/base/"; fi
+done
+place "$REPO/lcars/lcars.py" "$CONTROL/lcars.py"
+place "$REPO/lcars/lcars.md" "$COMMANDS/lcars.md"
+python3 -I "$CONTROL/lcars.py" apply
+echo "Installed the /lcars command (try /lcars help in Claude Code)"
 
 if [ "$SOUNDS" = 1 ]; then
   if [ ! -x /usr/bin/afplay ]; then
