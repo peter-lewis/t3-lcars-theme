@@ -1,4 +1,4 @@
-# LCARS sounds switch. Usage: toggle.py [on|off|status]  (no argument = flip)
+# LCARS sounds switch. Usage: toggle.py [on|off|status|help]  (no argument = flip)
 #   toggle.py use <slot> <file>   play your own audio file for a slot (copied into ~/.claude/lcars-sounds-custom/)
 #   toggle.py reset [slot|all]    go back to the built-in sound
 import os, sys, signal, shutil, subprocess
@@ -53,7 +53,11 @@ elif arg=='reset' and len(args)<=2:
     for s in (SLOTS if which=='all' else [which]): clear(s)
     print('LCARS ' + ('sounds' if which=='all' else which + ' sound') + ' reset to the built-in version')
 else:
-    print('Usage: /sounds [on|off|status]  (no argument flips it)\n'
-          '       /sounds use <slot> <file>   e.g. /sounds use hail ~/Downloads/hail.mp3\n'
-          '       /sounds reset [slot|all]\n'
-          'Slots: ' + ', '.join(f'{s} ({w})' for s,w in SLOTS.items())); sys.exit(1)
+    # Markdown, because /sounds output is shown in chat: a list keeps the lines apart, backticks keep <slot> visible
+    print('LCARS sounds commands:\n\n'
+          '- `/sounds` flips sounds on or off\n'
+          '- `/sounds on`, `/sounds off`, `/sounds status`\n'
+          '- `/sounds use <slot> <file>` plays your own file for a slot, e.g. `/sounds use hail ~/Downloads/hail.mp3`\n'
+          '- `/sounds reset [slot]` goes back to the built-in sound (no slot resets all)\n\n'
+          'Slots: ' + ', '.join(f'`{s}` ({w})' for s,w in SLOTS.items()))
+    sys.exit(0 if arg in ('help','-h','--help') else 1)   # asking for help is not an error

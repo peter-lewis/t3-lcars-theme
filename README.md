@@ -57,6 +57,7 @@ Uninstall the LCARS theme from https://github.com/peter-lewis/t3-lcars-theme: sw
 - **Approval keys.** When a command waits for approval, Approve is a solid LCARS key in the alert color, Decline a red outline key and More a small outline key.
 - **Light and dark.** In light appearance the console turns a pale, cool grey: LCARS bars on near-white panels with a deeper lavender, ink-speck stars that still go to warp, and darker alert hues so hail, yellow and red alert stay readable. T3 Code switches between them with its color scheme setting.
 - **Reduced motion.** Animations stop when macOS *Reduce motion* is on.
+- **`/lcars` controls.** One Claude Code command to force light or dark, hold the ship in any state, and turn features off. See [Controls](#controls).
 
 ![At rest: the starfield drifts slowly behind a finished thread](docs/idle.jpg)
 
@@ -76,6 +77,29 @@ cd ~/dev/t3-lcars-theme
 ```
 
 Then choose **LCARS** in T3 Code's theme settings. On T3 Code Stable 0.1.10, `install.sh` asks which compact build you want; see [T3 Code Stable 0.1.10](#t3-code-stable-0110).
+
+## Controls
+
+`install.sh` also adds a `/lcars` command to Claude Code. It works in T3 Code threads and in the `claude` CLI, and changes show up in T3 Code within a second or two.
+
+| Command | What it does |
+|---|---|
+| `/lcars` | Shows the current settings |
+| `/lcars light`, `/lcars dark` | Forces light or dark, whatever T3 Code's color scheme is |
+| `/lcars auto` | Follows T3 Code's color scheme again |
+| `/lcars state warp` | Holds the ship in one state: `idle`, `warp`, `hail`, `yellow` or `red`. Handy for screenshots, or to see an alert. `/lcars state auto` goes back to following your threads |
+| `/lcars starfield off` | Turns off the drifting stars |
+| `/lcars warp off` | No warp streaks while Claude works |
+| `/lcars alerts off` | No hail, yellow or red alert colors |
+| `/lcars font off` | The system's condensed font instead of Antonio |
+| `/lcars motion off` | Stops LCARS animation: drift, warp, breathing alerts and blinking endcaps |
+| `/lcars sounds ...` | The same as [`/sounds`](#sounds-optional-macos) |
+| `/lcars reset` | Back to the defaults |
+| `/lcars help` | Lists all of the above |
+
+Each feature turns back on with `on`, for example `/lcars starfield on`. Settings apply to both `lcars` and `lcars-red-alert`, and re-running `install.sh` keeps them.
+
+How it works: `install.sh` keeps an untouched copy of each installed theme in `~/.claude/lcars/base/`. Every `/lcars` change rebuilds `~/.t3/userdata/themes/lcars.json` from that copy and the settings in `~/.claude/lcars/settings.json`, and T3 Code reloads the file. On the [compact builds](#t3-code-stable-0110), forcing light needs the build with light mode, and a change that would push a build over the 50,000-character cap is refused.
 
 ## T3 Code Stable 0.1.10
 
@@ -120,7 +144,7 @@ Several sessions working at once share one hum. The hum stops on its own after 3
 
 Restart Claude Code, or start a new T3 thread, to load the hooks.
 
-**Turn them on and off** with `/sounds off`, `/sounds on`, `/sounds status`, or plain `/sounds` to flip. Without the command, run `python3 ~/.claude/hooks/lcars-sounds/toggle.py off`.
+**Turn them on and off** with `/sounds off`, `/sounds on`, `/sounds status`, or plain `/sounds` to flip. `/sounds help` lists every option. `/lcars sounds ...` does the same. Without the command, run `python3 ~/.claude/hooks/lcars-sounds/toggle.py off`.
 
 To change the sounds, edit `make_beeps.py` or `make_hum.py` and run `./install.sh --sounds` again.
 
@@ -161,14 +185,15 @@ If you are an AI agent following one of the prompts above:
 1. Clone or pull the repo, then run `./install.sh`, adding `--sounds` only if the user asked for sounds.
 2. If `install.sh` exits with status 2 and prints `LCARS INSTALL NEEDS A CHOICE FROM THE USER`, T3 Code is too old for the full theme and nothing was installed. Ask the user which version they want, with your question tool if you have one (`AskUserQuestion` in Claude Code), offering the options in the order printed. Run the command for their answer. Do not choose for them, and do not edit or minify the theme files yourself.
 3. Switch the theme. In T3 Code, call `t3_theme_set` with `themeId: "lcars"` if you have it. Otherwise tell the user to choose **LCARS** in T3 Code's theme settings. If `t3_theme_set` reports a 50,000-character limit, run `./install.sh` again without flags and go back to step 2.
-4. If you installed sounds, tell the user that `/sounds off` turns them off, that `/sounds use <slot> <file>` swaps in their own audio (see [Use your own sounds](#use-your-own-sounds)), and that the hooks load in new sessions. Do not download sound clips for the user from third-party sites; they pick and download their own.
-5. To uninstall, switch the theme back to `t3-code` first, then run `./uninstall.sh`.
+4. Tell the user that `/lcars` controls the theme from Claude Code (`/lcars help` lists the options).
+5. If you installed sounds, tell the user that `/sounds off` turns them off, that `/sounds use <slot> <file>` swaps in their own audio (see [Use your own sounds](#use-your-own-sounds)), and that the hooks load in new sessions. Do not download sound clips for the user from third-party sites; they pick and download their own.
+6. To uninstall, switch the theme back to `t3-code` first, then run `./uninstall.sh`.
 
 Do not symlink the theme files into `~/.t3/userdata/themes/`; T3 Code will not list them.
 
 ## Customizing
 
-The whole theme is CSS inside `themes/lcars.json`. Edit the installed copy in `~/.t3/userdata/themes/`, then re-select the theme in T3 Code to reload it. Copy the file back into `themes/` when you're happy with it.
+The whole theme is CSS inside `themes/lcars.json`. Edit the installed copy in `~/.t3/userdata/themes/`; T3 Code reloads it when the file changes. Copy the file back into `themes/` when you're happy with it, because `/lcars` and `install.sh` rebuild the installed copy and overwrite edits made only there.
 
 Helper scripts in `tools/`:
 
